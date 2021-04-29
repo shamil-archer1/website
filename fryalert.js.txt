@@ -1,0 +1,504 @@
+--!!! Important !!! Set 1 pc/visu page to use as template to 'Show, make default', if no page is set to 'Show, make default' the script exits without creation of page !!
+--!!! Important !!! Works only on iOS after opening visu by "Add to homescreen" (audio can't be fired without touch event by Apple in normal mode)
+ 
+--Give a (not already excisting) name for the plan thats holds the alert page module (if already exist then script exit the creation)
+Alert_Page_Name = 'Alerts'
+ 
+-- Group address to (re)trigger the alert page and audio without new alert (for mandatory acknowledge by KNX)
+Alert_Trigger_Group_Address = '0/0/30' -- !! MUST BE A BYTE SCALE (5.001) OBJECT !! 0 = NOTHING, 1 = ACTIVATE, 2 = DEACTIVATE / MUTE, 3 = NEXT, 4 = PREVIOUS, 5 = PAGE CHANGE
+ 
+-- Check for alerts without sending KNX command (if alert is added by script by: alert('alertmessage') to the alert list the action is fired automaticly)
+Check_Alerts_Automaticly = true
+ 
+-- URL to use for downloading a audiofile to the controller
+URL_Audio_File = 'h'
+ 
+-- Downloaded audio file format
+Audio_File_Format = 'mp3'
+ 
+-- !IMPORTANT! internet must be available for the controller to download a audio file
+-- check DNS and default gateway or copy your own audio files to the img / backgrounds 
+-- folder and name it 'alert' (format like Audio_File_Format)
+ 
+-- Set interval (in seconds) for audio repeat playing file until mute is pressed
+Audio_Play_Interval_Time = 10 -- Adjust to length of playing file
+ 
+-- Set interval (in seconds) for searching new alerts
+New_Alert_Polling_Interval_Time = 5 -- Adjust to long as possible to reduce browser load (check once each minute will result in max delay 1 minute)
+ 
+-- Set title for HTML module (use '' for no title)
+Alert_Title = 'LM Alerts'
+ 
+-- Set prefix for message info screen
+Alert_Message_Prefix = 'Message: '
+Alert_Time_Prefix = 'Time: '
+Alert_Scriptname_Prefix = 'Scriptname: '
+ 
+-- Hide HTML buttons (to hide buttons when only KNX buttons are used)
+Hide_HTML_Buttons = false
+ 
+-- Centralize mute / acknowledge when using HTML buttons (use when multiple screens must be muted@ once) !! IMPORTANT!! Group address to (re)trigger must be available (See parameters above)
+Central_Mute = true -- Not needed when using KNX buttons instead of HTML buttons
+ 
+-- Set name for mute button
+Mute_Button_Text = 'Mute'
+ 
+-- Set Width and Height of HTML frame on page (Must be smaller then size of default startpage)
+Alert_Frame_Width = 500
+Alert_Frame_Height = 400
+ 
+-- ******************************** END PARAMETERS ****************************** --
+-- ********************* DON'T CHANGE ANYTHING UNDER THIS LINE ****************** --
+ 
+-- Get default startpage
+query = 'SELECT id, building, layout, name, usermode_param, width, height FROM visfloors'
+for _, floor in ipairs(db:getall(query)) do
+  if floor.usermode_param == "D" then
+    default_startpage = floor.id
+    alert_page_building = floor.building
+    alert_page_layout = floor.layout
+    alert_page_width = floor.width
+    alert_page_height = floor.height
+  end
+  if floor.name == Alert_Page_Name then
+    name_already_exists = true
+  end
+end
+ 
+-- Check if default page excists else exit script
+if default_startpage == nil then
+  alert("Default page does not excists, exit alert page creation")
+  -- Disable script
+  script.disable(_SCRIPTNAME)
+  --Exit script
+  return
+end
+ 
+-- Enable page adding
+Page_Adding = true
+ 
+-- Check alert page already excists else exit script
+if name_already_exists == true then
+  alert("Alert page already excist or name is already used, only HTML will be rewritten")
+  -- Disable page adding
+  Page_Adding = false
+end
+ 
+-- Set sortorder to default sortorder value for counting
+highest_sortorder = 1
+ 
+-- Get highest sortorder inside building part where default startpage is located 
+query = 'SELECT sortorder FROM visfloors WHERE building == ' .. alert_page_building .. ' ORDER BY sortorder DESC'
+for _, floor in ipairs(db:getall(query)) do
+  if highest_sortorder <= floor.sortorder then
+     highest_sortorder = floor.sortorder + 1
+  end
+end
+ 
+if Page_Adding == true then
+  -- Create alert page if alert page doesn't exist
+  db:insert('visfloors', {building = alert_page_building, layout = alert_page_layout, sortorder = highest_sortorder, name = Alert_Page_Name, bgrepeat = 0, bgfixed = 0, adminonly = 0, width = alert_page_width, height = alert_page_height,})
+end
+ 
+-- Get page number of new created alert page 
+alert_page_number = db:getone('SELECT id FROM visfloors WHERE name=?', Alert_Page_Name)
+ 
+-- Set interval (in seconds) for audio repeat playing file until mute is pressed to milliseconds
+Audio_Play_Interval_Time = Audio_Play_Interval_Time * 1000
+if Audio_Play_Interval_Time < 1000 then
+  Audio_Play_Interval_Time = 1000
+end
+ 
+-- Set interval (in seconds) for polling to milliseconds
+New_Alert_Polling_Interval_Time = New_Alert_Polling_Interval_Time * 1000
+if New_Alert_Polling_Interval_Time < 1000 then
+  New_Alert_Polling_Interval_Time = 1000
+end
+ 
+-- Create HTML content
+page = [[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>LM Alert Page</title>
+<style type="text/css">
+body {
+  background-color: transparent;
+}
+</style>
+</head>
+<body>
+<div id="Wrapper" style="width:100%;">
+  <div id="Title" style="height:20px; width:100%; resize:none; text-align: center; padding-top: 5px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;">
+    <label>]] .. Alert_Title .. [[</label> 
+  </div>
+  <div id="Messagefield">
+    <textarea id="alertmessage" name="Alerts" cols="1" rows="1" readonly="readonly" style="height:150px; overflow:hidden; width:100%; resize:none"></textarea>
+  </div>
+  <div id="Title" style="height:20px; width:100%; resize:none; text-align: center; padding-top: 5px; font-family: Verdana, Geneva, sans-serif;">
+    <label id="alertnumber">0 / 0</label> 
+  </div>]]
+if Hide_HTML_Buttons == false then
+  page = page .. [[
+  <div id="Buttons" style="width:100%; margin-top:10px">
+      <div style="position:relative; float:left;">
+        <input id="previous" name="Previous" style="height:40px; margin-left:10px; width:180px; resize:none" onclick="previousalert()" type="button" value="<<" />
+    </div>
+    <div style="position:relative; float:right;">
+        <input id="next" name="Next" style="height:40px; width:180px; margin-right:5px; resize:none" onclick="nextalert()" type="button" value=">" />
+    </div>
+  </div>
+  <div id="Mute" style="text-align: center; margin-left:10px; margin-right:5px;">
+    <input name="Mute" type="button" id="mute" style="height:40px; text-align: center; width:100%; margin-top:10px; resize:none" onclick="stopalert()" value="]] .. Mute_Button_Text .. [[" />
+  </div>]]
+else
+  page = page .. [[
+  <div id="Buttons" style="width:100%; height:0px; margin-top:0px">
+      <div style="position:relative; float:left;">
+        <input id="previous" name="Previous" style="height:0px; visibility:hidden; margin-left:10px; width:180px; resize:none" onclick="previousalert()" type="button" value="<<" />
+    </div>
+    <div style="position:relative; float:right;">
+        <input id="next" name="Next" style="height:0px; visibility:hidden; width:180px; margin-right:5px; resize:none" onclick="nextalert()" type="button" value=">" />
+    </div>
+  </div>
+  <div id="Mute" style="text-align: center; margin-left:10px; margin-right:5px;">
+    <input name="Mute" type="button" id="mute" style="height:0px; visibility:hidden; text-align: center; width:100%; margin-top:10px; resize:none" onclick="stopalert()" value="]] .. Mute_Button_Text .. [[" />
+  </div>]]
+end
+page = page .. [[
+</div>
+<script type="text/javascript">
+ 
+// ***** Make link to parent from iframe *****
+var p = window.parent, root, addr;
+var ip = location.host;
+var Message_Prefix = "]] .. Alert_Message_Prefix .. [[";
+var Time_Prefix = "]] .. Alert_Time_Prefix .. [[";
+var Scriptname_Prefix = "]] .. Alert_Scriptname_Prefix .. [[";
+var alert_number = 0;
+var page_number = 0;
+// name = planStore[ currentPlanId ].name
+ 
+if (p && p.objectStore) {
+ 
+  function getdatafromcontrolleroninit() {
+    p.$.ajax({
+      url: p.Scada.reqUrl('alerts'),
+      type: 'POST',
+      data: { limit: 50 },
+      dataType: 'json',
+      success: function(result) {
+        // console.log(result);
+        if ( result.data.length > 0 ) { 
+          localStorage.setItem("result", JSON.stringify(result)); // Saves data to local browser storage
+          localStorage.setItem("resultnumber", result.data.length); // Saves number of data items to local browser storage
+          localStorage.setItem("resultnumberinit", result.data.length); // Saves number of data items to local browser storage
+          localStorage.setItem("resultnumbertimeinit", result.data[0].alerttime); // Saves number of data items to local browser storage
+        }
+      }
+    });
+  }
+ 
+  // ** Get alerts on init
+  getdatafromcontrolleroninit();
+ 
+  function getdatafromcontroller() {
+    p.$.ajax({
+      url: p.Scada.reqUrl('alerts'),
+      type: 'POST',
+      data: { limit: 50 },
+      dataType: 'json',
+      success: function(result) {
+        //console.log(result);
+        if ( result.data.length > 0 ) {
+          localStorage.setItem("result", JSON.stringify(result)); // Saves data to local browser storage
+          localStorage.setItem("resultnumber", result.data.length); // Saves number of data items to local browser storage
+          localStorage.setItem("resultnumbertimenew", result.data[0].alerttime); // Saves number of data items to local browser storage
+        }
+      }
+    });
+    var storagetimeinit = localStorage.getItem("resultnumbertimeinit");
+    var storagetimenew = localStorage.getItem("resultnumbertimenew");
+    if (typeof storagetimeinit !== 'undefined' && typeof storagetimenew !== 'undefined') {
+      if ( storagetimeinit !== storagetimenew ) {
+        // alert('New alert found');
+        localStorage.setItem("resultnumbertimeinit", storagetimenew); // Saves new init time to local browser storage
+        alert_number = 0;
+        // Check if function is already loaded before calling it
+        if (typeof extractalertdata == 'function') { 
+          extractalertdata(alert_number);
+        }
+        document.getElementById("next").disabled = true;
+        document.getElementById("previous").disabled = false;
+        // Check if function is already loaded before calling it
+        if (typeof playalert == 'function') { 
+          playalert();
+        } 
+      }
+    }
+  }
+ 
+  function extractalertdata(alertnumber) {
+    var storageresult = localStorage.getItem("result"); // Grab local saved stringyfied ajax call data and save it to a variable
+    if (typeof storageresult !== 'undefined') { // Checks if var is loaded with data already
+      result = JSON.parse(storageresult); // Tranfer stringyfied ajax call data back to object
+      //console.log(result); // Logs ajax call data transferred from localStorage
+      if (result.data.length >= 1) {
+        var obj = result.data[alert_number];
+        //console.log(obj);
+        var alert_key;
+        var alert_value;
+        var alert_id;
+        var alert_time;
+        var alert_message;
+        var alert_scriptname;
+ 
+        for ( var key in obj) {
+          alert_key = key;
+          alert_value = obj[key].toString();
+ 
+          if ( alert_key == 'id' ) {
+            alert_id = alert_value;
+          }
+ 
+          if ( alert_key == 'alerttime' ) {
+            alert_time = alert_value;
+ 
+            function timeConverter(UNIX_timestamp){
+              var a = new Date(UNIX_timestamp*1000);
+              var months = ['Jan','Feb','Maa','Apr','Mei','Jun','Jul','Aug','Sep','Okt','Nov','Dec'];
+              var year = a.getFullYear();
+              var month = months[a.getMonth()];
+              var date = a.getDate() < 10 ? '0' + a.getDate() : a.getDate();
+              var hour = a.getHours() < 10 ? '0' + a.getHours() : a.getHours();
+              var min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes(); 
+              var sec = a.getSeconds() < 10 ? '0' + a.getSeconds() : a.getSeconds();
+              var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+              return time;
+            }
+            alert_time = timeConverter(alert_time);
+          }
+ 
+          if ( alert_key == 'alert' ) {
+            alert_message = alert_value;
+          }
+ 
+          if ( alert_key == 'scriptname' ) {
+            alert_scriptname = alert_value;
+          }
+ 
+          document.getElementById('alertmessage').value = Message_Prefix + alert_message + "\n" + "\n" + Time_Prefix + alert_time + "\n" + "\n" + Scriptname_Prefix + alert_scriptname;
+          document.getElementById('alertnumber').innerHTML = (result.data.length - alert_number) + " / " + result.data.length;
+        }
+      }
+    }
+}]]
+if Check_Alerts_Automaticly == true then
+  page = page ..[[
+ 
+  // ** Check for new alerts
+  var getdata = window.setInterval("getdatafromcontroller()",]] .. New_Alert_Polling_Interval_Time .. [[);
+]]
+end  
+page = page .. [[
+ 
+  // Load last alert on init
+  extractalertdata(alert_number)
+ 
+  // Disable next button because value = 0 (latest alert is loaded)
+  document.getElementById("next").disabled = true; 
+ 
+  function nextalert() {
+    var storageresultnumber = localStorage.getItem("resultnumber"); // Grab local saved stringyfied ajax call data record number and save it to a variable
+    if (typeof storageresultnumber !== 'undefined') { // Checks if var is loaded with data already
+      alert_number = alert_number - 1 
+      if ( alert_number <= 0 ) {
+        alert_number = 0
+        // Disable next button because value = 0 (newest alert is loaded)
+        document.getElementById("next").disabled = true;
+      }
+      if ( alert_number <= ( storageresultnumber -1 ) ) {
+        document.getElementById("previous").disabled = false; 
+      }
+      extractalertdata(alert_number)
+    }
+  }
+ 
+  function previousalert() {
+    var storageresultnumber = localStorage.getItem("resultnumber"); // Grab local saved stringyfied ajax call data record number and save it to a variable
+    if (typeof storageresultnumber !== 'undefined') { // Checks if var is loaded with data already
+      alert_number = alert_number + 1
+      if ( alert_number >= ( storageresultnumber - 1 ) ) {
+        alert_number = ( storageresultnumber -1 );
+        // Disable previous button because value = storageresultnumber (oldest alert is loaded)
+        document.getElementById("previous").disabled = true;  
+      }
+      if ( alert_number > 0 ) {
+        document.getElementById("next").disabled = false; 
+      }
+    extractalertdata(alert_number)  
+    }
+  }
+ 
+  // Create snd for playing audio 
+  var snd = new Audio("/user/alert.]] .. Audio_File_Format .. [[");
+  // snd.currentTime = 0;
+ 
+  // Create alertaudio for loop playing audio 
+  var alertaudio = ""
+ 
+  function playalert() {
+    // snd.stop(); // ** to avoid already running audio @ once
+    // Create loop    
+    if(alertaudio==""){
+      alertaudio = window.setInterval("playalert_loop()",]] .. Audio_Play_Interval_Time .. [[);
+    }
+    // Start loop direct
+    playalert_loop()
+  }
+ 
+  function playalert_loop() {
+    // Jump to alertpage (only if other page is showed)
+    if ( p.currentPlanId != ]] .. alert_page_number .. [[ ) {
+      p.showPlan(]] .. alert_page_number .. [[);
+      // Load last alert
+      alert_number = 0;
+      extractalertdata(alert_number);
+      document.getElementById("next").disabled = true;
+      document.getElementById("previous").disabled = false;
+    }
+ 
+    if (snd.paused || snd.ended || snd.currentTime == 0 ) {
+      snd.play();
+    } else {
+      // if (snd.paused || snd.currentTime > 0 && !snd.ended) {
+      // }
+    }
+  }]]
+if Central_Mute == true then
+  page = page .. [[
+ 
+  function stopalert() {
+    if(alertaudio!=""){
+       window.clearInterval(alertaudio)
+       alertaudio=""
+    }
+    if (!snd.paused || !snd.ended || snd.currentTime > 0 ) {
+      snd.pause();
+      snd.currentTime = 0;
+    }
+  p.setObjectValue({ address: ']] .. Alert_Trigger_Group_Address .. [[', rawdatatype: 5001 }, 2, 'text');
+  }
+]]
+else
+  page = page .. [[
+ 
+  function stopalert() {
+    if(alertaudio!=""){
+       window.clearInterval(alertaudio)
+       alertaudio=""
+    }
+    if (!snd.paused || !snd.ended || snd.currentTime > 0 ) {
+      snd.pause();
+      snd.currentTime = 0;
+    }
+  }
+]]
+end
+  page = page .. [[
+  // Add event listener on KNX addres for retrigger alert function without new alert action
+  addr = p.Scada.encodeGroupAddress(']] .. Alert_Trigger_Group_Address .. [[');    
+  p.objectStore.addListener(addr, function(obj, type) {
+ 
+    // to avoid (re)trigger on opening page */
+    if (type == 'init') {
+       return;
+    }
+ 
+    // no actions on value 0
+    if ( obj.value == 0) {
+      // Nothing free value for reset of KNX datapoint
+    }
+ 
+    // start alerts on value 1
+    if ( obj.value == 1 ) {
+      playalert();
+      p.setObjectValue({ address: ']] .. Alert_Trigger_Group_Address .. [[', rawdatatype: 5001 }, 0, 'text');
+    }
+ 
+    // stop alerts on value 2
+    if ( obj.value == 2 ) {
+      stopalert();
+      p.setObjectValue({ address: ']] .. Alert_Trigger_Group_Address .. [[', rawdatatype: 5001 }, 0, 'text');
+    }
+ 
+    // next alerts on value 3
+    if ( obj.value == 3 ) {
+      nextalert();
+      p.setObjectValue({ address: ']] .. Alert_Trigger_Group_Address .. [[', rawdatatype: 5001 }, 0, 'text');
+    }
+ 
+    // previous alerts on value 4
+    if ( obj.value == 4 ) {
+      previousalert();
+      p.setObjectValue({ address: ']] .. Alert_Trigger_Group_Address .. [[', rawdatatype: 5001 }, 0, 'text');
+    }
+ 
+    // open page alerts on value 5
+    if ( obj.value == 5 ) {
+      // Jump to alertpage (only if other page is showed)
+      if ( p.currentPlanId != ]] .. alert_page_number .. [[ ) {
+        p.showPlan(]] .. alert_page_number .. [[);
+        // Load last alert
+        alert_number = 0;
+        extractalertdata(alert_number);
+        document.getElementById("next").disabled = true;
+        document.getElementById("previous").disabled = false;
+      }
+      p.setObjectValue({ address: ']] .. Alert_Trigger_Group_Address .. [[', rawdatatype: 5001 }, 0, 'text');
+    }
+ 
+  });
+}
+</script>
+</body>
+</html>
+]]
+ 
+-- Create temp HTML file to write to controller
+io.writefile("/www/user/alert.html", page)
+ 
+-- Download alert file to controler local
+os.execute('wget -q -U Mozilla -O /www/user/alert.' .. Audio_File_Format .. ' ' ..  URL_Audio_File .. '')
+ 
+-- Check if frame is smaller than page
+Alert_Frame_Width = math.min(Alert_Frame_Width, alert_page_width)
+Alert_Frame_Height = math.min(Alert_Frame_Height, alert_page_height)
+ 
+-- Calculate center position  
+htmlxposition = math.floor((alert_page_width / 2) + 0.5) - math.floor((Alert_Frame_Width / 2) + 0.5)
+htmlyposition = math.floor((alert_page_height / 2) + 0.5) - math.floor((Alert_Frame_Height / 2) + 0.5)
+ 
+-- Check if HTML object already exist
+object_exists = false
+query = 'SELECT floor, type, name, params FROM visobjects'
+for _, visobject in ipairs(db:getall(query)) do
+  if visobject.floor == alert_page_number and (visobject.type == 9 or visobject.type == "9") and visobject.name == "alert" then
+    object_exists = true    
+  end
+end
+ 
+if Page_Adding == true then
+  -- Create html object on alertpage
+  db:insert('visobjects', {floor = alert_page_number, type = 9, params = '{"source":"url","url":"/user/alert.html","width":' .. Alert_Frame_Width .. ',"height":' .. Alert_Frame_Height .. '}', locx = htmlxposition , locy = htmlyposition , name = "alert", notouch = 1, nobg = 1,})
+  log ("Alert page is added")
+elseif object_exists == false then
+-- Create html object on excisiting alertpage
+  db:insert('visobjects', {floor = alert_page_number, type = 9, params = '{"source":"url","url":"/user/alert.html","width":' .. Alert_Frame_Width .. ',"height":' .. Alert_Frame_Height .. '}', locx = htmlxposition , locy = htmlyposition , name = "alert", notouch = 1, nobg = 1,})
+  log ("HTML is added to excisiting alert page")
+else
+  log ("HTML on alert page is updated")
+end
+ 
+-- Disable script when done automaticly
+script.disable(_SCRIPTNAME)

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<title>Feedback Form</title>	
+<body>
+<h1>Feedback Form</h1>
+
+<form method="post" action="send_mail.php">
+<p>
+<label>First Name
+<input class="we"type="text" name="first_name" required>
+</label> 
+</p>
+<p>
+<label>Email 
+<input class="we"type="email" name="email_address">
+</label>
+</p>
+<p>
+<label>Comments
+<textarea class="we"name="comments" maxlength="500"></textarea>
+</label>
+</p>
+<p><button class="we">Submit the form</button></p>
+</form>
+</body>
+<style>
+    body{
+        background:black;
+        color:lightgreen;
+    }
+    .we{
+        position:center;
+        align:center;
+    }
+</style>
