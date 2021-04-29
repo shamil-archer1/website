@@ -1,0 +1,508 @@
+<html><head></head>
+   
+  
+    <body><div class="header">
+  <h1>Music Library</h1>
+  <p>by Shamil Burkhanov</p>
+</div>
+   <script type="text/javascript" src="javascript.js"></script>
+	
+		<input type="file" id="file-input" accept="audio/*,video/*,image/*">
+		<canvas id="canvas"></canvas>
+		<h3 id="name"></h3>
+		<div id="background"></div>     
+    <style>
+        body {
+ background-image: url("");
+ background-color:black ;
+}
+   .header {
+  padding: 40px;
+  text-align: center;
+  text-decoration:underline;
+  font-family:arial;
+   background-image: url("https://i.imgur.com/sc3Qevr.jpg");
+   background-repeat:no-repeat;
+   background-position:center;
+  color: white;
+  font-size: 30px;
+}
+ 
+}
+div{
+  width: 100;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+}
+::-webkit-scrollbar{
+  width: 12px;
+}
+::-webkit-scrollbar-thumb{
+  background: cyan;
+  border-radius: 20px;
+}
+::-webkit-scrollbar-track{
+  background:black;
+}
+ *:focus
+{
+    outline: none;
+
+
+}       
+ footer {
+  font-family: "verdana", arial black, sans-serif;
+  position:bottom;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+   background:lightblue;
+   background-repeat:no-repeat;
+   background-position:center;
+  color:black;
+  text-align: center;
+  display: block;
+}       
+   .loader div {
+            width: 20px;
+            height: 20px;
+            background: #000;
+            border-radius: 50%;
+            float: left;
+        }
+
+        .preloader {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            background: #000;
+        }
+
+        .loaders {
+            width: 35px;
+            height: 35px;
+            border-top: 4px solid #fff;
+            border-bottom: 0px solid #fff;
+            border-left: 0px solid #fff;
+            border-right: 0px solid transparent;
+            border-radius: 50%;
+            animation: load 3s linear infinite;
+        }
+
+        @keyframes load {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(3600deg);
+            }
+        }
+
+        @-webkit-keyframes load {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(3600deg);
+            }
+        }
+    
+}
+  </style>  
+    
+    <audio controls="">
+        <label>first</label>
+        
+  <source>
+  <source src="engine\Music\1.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\2.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\3.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\4.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\5.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\6.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\7.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\8.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\9.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\10.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\11.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\12.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\13.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\14.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\15.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\16.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\17.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  
+  <source src="engine\Music\18.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\19.mp3" type="audio/mpeg">
+Your browser does not support the audio element. 
+</audio>
+    <audio controls="">
+  <source src="engine\Music\20.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\21.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  
+  <source src="engine\Music\22.mp3" type="audio/mpeg">
+</audio>
+    <audio controls="">
+  <source src="engine\Music\23.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\24.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\25.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\26.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\27.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\28.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\29.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\30.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\31.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\32.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\33.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\34.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\35.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\36.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\37.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="">
+  <source src="engine\Music\38.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="true">
+  
+  <source src="engine\Music\39.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="true">
+ 
+  <source src="engine\Music\40.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="true">
+  <source src="engine\Music\41.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="true">
+  <source src="engine\Music\42.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="true">
+  <source src="engine\Music\43.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="true">
+  <source src="engine\Music\44.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="true">
+  <source src="engine\Music\45.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="true">
+  <source src="engine\Music\46.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="true">
+  <source src="engine\Music\47.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <audio controls="true">
+  <source src="engine\Music\48.mp3" type="audio/mpeg">
+   
+</audio>
+        <script>
+            ];
+        window.onscroll = function() {
+            var nav = document.getElementById("nav");
+            var textb = document.getElementById("text");
+            textb.style.transform = "translate(0, -" + window.scrollY / 2 + "px)"
+            if(window.scrollY >= 145) {
+                nav.style.background = "#000";
+                musicplayername.style.color = "white";
+            } else {
+                nav.style.background = "transparent";
+                musicplayername.style.color = "transparent";
+            }
+        }
+        window.onload = function() {
+            var container = document.getElementById("container");
+            for(var i = 0; i <= songs.length - 1; i++) {
+                container.innerHTML += markup(i, songs[i].name, songs[i].artist, songs[i].poster);
+            }
+            var pre = document.getElementById("pre");
+            pre.style.display = "none";
+        }
+
+        function opensearch() {
+            document.getElementById("sbar").style.right = "0";
+            scrollTo(0, 145);
+        }
+
+        function closesearch() {
+            document.getElementById("sbar").style.right = "-100%";
+            document.getElementById("inp").value = "";
+            var cardc = document.getElementsByClassName("card");
+            for(var i = 0; i <= cardc.length - 1; i++) {
+                cardc[i].style.display = "";
+            }
+        }
+
+        function search() {
+            var m = document.getElementsByClassName("card");
+            var inp = document.getElementById("inp").value.toUpperCase();
+            for(var i = 0; i <= m.length - 1; i++) {
+                if(m[i].innerHTML.toUpperCase().indexOf(inp) != -1) {
+                    m[i].style.display = "";
+                } else {
+                    m[i].style.display = "none";
+                }
+            }
+        }
+
+        function mint() {
+            var isPlaying = aud.currentTime > 0 && !aud.paused && !aud.ended && aud.readyState > 2;
+            if(isPlaying) {
+                aud.currentTime = aud.currentTime - 10;
+            }
+        }
+
+        function maxt() {
+            var isPlaying = aud.currentTime > 0 && !aud.paused && !aud.ended && aud.readyState > 2;
+            if(isPlaying) {
+                aud.currentTime = aud.currentTime + 10;
+            }
+        }
+
+        function play(e, i) {
+            if(songs[i].isPlay == true) {
+                var loadmusic = document.getElementById("loadmusic");
+                loadmusic.style.transform = "scaleY(1)";
+                aud.addEventListener('loadeddata', function() {
+                    loadmusic.style.transform = "scaleY(0)";
+                }, false);
+                if(lastsong == null) {
+                    e.innerHTML = "<svg class='material-icons' width='2em' height='2em' viewBox='0 0 16 16' class='bi bi-pause-fill' fill='currentColor' xmlns='http://dl.w3.org/2000/svg'><path d='M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z'></svg>";
+                    aud.src = songs[i].song;
+                    aud.play();
+                    songs[i].isPlay = true;
+                    lastsong = i;
+                } else {
+                    songs[lastsong].is = true;
+                    document.getElementById("playbtn" + lastsong).innerHTML = "<svg class='material-icons' width='2em' height='2em' viewBox='0 0 16 16' class='bi bi-play-fill' fill='currentColor' xmlns='http://dl.w3.org/2000/svg'><path d='M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z'/></svg>";
+                    e.innerHTML = "<svg class='material-icons' width='2em' height='2em' viewBox='0 0 16 16' class='bi bi-pause-fill' fill='currentColor' xmlns='http://dl.w3.org/2000/svg'><path d='M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z'></svg>";
+                    aud.src = songs[i].song;
+                    aud.play();
+                    songs[i].isPlay = true;
+                    lastsong = i;
+                }
+            } else {
+                var isPlaying = aud.currentTime > 0 && !aud.paused && !aud.ended && aud.readyState > 2;
+                if(isPlaying) {
+                    e.innerHTML = "<svg class='material-icons' width='2em' height='2em' viewBox='0 0 16 16' class='bi bi-play-fill' fill='currentColor' xmlns='http://dl.w3.org/2000/svg'><path d='M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z'/></svg>";
+                    songs[i].isPlay = false;
+                    aud.pause();
+                    lastsong = null;
+                }
+            }
+        }
+        alert("Made by : shamil")
+        function jumpScroll() {
+        window.scroll(0,145);
+        }
+             
+         alert("Made by : shamil")
+        function jumpScroll() {
+        window.scroll(0,145);
+        }
+         alert("Click on 'choose File', select your file, and see the magic!");
+alert("you may need to drag and drop your music file");
+alert("I couldn't make this function on mobile, so go on your computer!");
+window.onload = function() {
+	const file = document.getElementById("file-input");
+	const canvas = document.getElementById("canvas");
+	const h3 = document.getElementById('name');
+	const audio = document.getElementById("audio");
+	file.onchange = function() {
+		const files = this.files;
+		audio.src = URL.createObjectURL(files[0]);
+		const name = files[0].name;
+		h3.innerText = `${name}`;
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		const ctx = canvas.getContext("2d");
+		const context = new AudioContext();
+		let src = context.createMediaElementSource(audio);
+		const analyser = context.createAnalyser();
+		src.connect(analyser);
+		analyser.connect(context.destination);
+		//1024 = 32
+		//2048 = 52
+		//4096 = 78
+		//8192 = 104
+		//16384 = 125
+		//32768 = 139
+		// analyser.fftSize = 1024;
+		// analyser.fftSize = 2048;
+		// analyser.fftSize = 4096;
+		analyser.fftSize = 8192;
+		// analyser.fftSize = 16384; 
+		// analyser.fftSize = 32768; 
+		const bufferLength = analyser.frequencyBinCount;
+		const dataArray = new Uint8Array(bufferlength=300);
+		const WIDTH = canvas.width;
+		const HEIGHT = canvas.height;
+		const barWidth = (WIDTH / bufferLength) * 13;
+		let barHeight;
+		let x = 0;
+		function renderFrame() {
+			requestAnimationFrame(renderFrame);
+			x = 0;
+			analyser.getByteFrequencyData(dataArray);
+			ctx.fillStyle = "rgba(0,0,0,0.2)";
+			ctx.fillRect(0,0, WIDTH, HEIGHT);
+			let r, g, b;
+			let bars = 104;
+			for (let i = 0; i < bars; i++) {
+				barHeight = (dataArray[i] * 2.25);
+				if (dataArray[i] > 210){
+					r = 255;
+					g = 0;
+					b = 0;
+				} else if (dataArray[i] > 180){
+					r = 255;
+					g = 140;
+					b = 0;
+				} else if (dataArray[i] > 150){
+					r = 255;
+					g = 238;
+					b = 0;
+				} else if (dataArray[i] > 120){
+					r = 0;
+					g = 255;
+					b = 55;
+				} else if (dataArray[i] > 90){
+					r = 0;
+					g = 128;
+					b = 255;
+				} else if (dataArray[i] > 60){
+					r = 128;
+					g = 0;
+					b = 255;
+				} else if (dataArray[i] < 60){
+					r = 255;
+					g = 0;
+					b = 238;
+				}
+				ctx.fillStyle = `rgb(${r},${g},${b})`;
+				ctx.fillRect(x, (HEIGHT - barHeight), barWidth, barHeight);
+				x += barWidth + 10;
+			}
+		}
+		audio.play();
+		renderFrame();
+	};
+};   
+        </script>
+        <footer>
+    <p><strong>©2020 |  by Shamil<br>Burkhanov</strong>
+           <br> more music on <a href="https://dl.dropbox.com/s/irn0i84cqxlt3aw/see_you_again.mp3">dropbox</a></p>
+  </footer>
+       
+    
+</body></html>
