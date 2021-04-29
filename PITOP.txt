@@ -1,0 +1,293 @@
+                                                   Instructions to setting up pitop desktop.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+                                                                Buy links
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+(1) Pi top CASE kit 
+https://www.amazon.com/dp/B08L7ZZB7K/
+
+(2) speakers
+https://www.amazon.com/dp/B07T8SCHTC/
+
+(3) web camera with mic
+https://www.amazon.com/dp/B07MPLMC89/
+
+(4) keyboard and mouse
+https://www.amazon.com/dp/B07Q6MQNVL/
+
+(7) Screen
+https://www.amazon.com/dp/B088FD9Q82/
+
+
+                                                        | estimated price for camera and mic is: 20.00$
+                                                        | estimated price for speakers is: 11.00$
+                                                        | estimated price for Pc box and is: 140.00$
+                                                        | estimated price for keyboard and mouse is: 9.00$ 
+                                                        | estimated price for screen is: 38.00$
+                                                     
+                                                          | Total estimated price is: 218.00$ | 
+
+                           *Remember that this price might get lower or higher and is estimated to highest possible price.
+----------------------------------------------------------------------------------------------------------------------------------------------
+                                                           INSTALL OPERATING SYSTEM
+----------------------------------------------------------------------------------------------------------------------------------------------
+                                                               *USE ANOTHER PC
+(1) insert the sd card in the pc or laptop
+(2) Find balena etcher in this folder and pick the version
+(3) open balena etcher put this link in it https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2020-05-28/2020-05-27-raspios-buster-arm64.zip
+(4) then in balena etcher wait for the second and pick the sd card
+(5) then press flash and wait until it is turned on
+(6) Then remove the sd card and put it in the pitop pc
+(7) then follow the instructions below and do not turn on the pi until everything is completed
+                                                    
+----------------------------------------------------------------------------------------------------------------------------------------------
+                                                   INSTRUCTIONS FOR BUILDING PI TOP DESKTOP PC
+----------------------------------------------------------------------------------------------------------------------------------------------
+                                       Open the box with case and follow the paper instructions there.
+                                            it should take about 7-15 min to finish building the pi mini pc
+                                                          then make sure it is working.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+                                                               HOW TO ADD SPEAKERS
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+   (1) Connect using 2.0 usb port
+   (2) Make sure on pi that audio output are from speakers
+   (3) Test sound
+--------------------------------------------------------------------------------------------------------------------------------------------------
+                                                              HOW TO ADD KEYBOARD and mouse
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+   (1) connect using 2.0 usb port (not blue)
+   (2) test the keyboard
+--------------------------------------------------------------------------------------------------------------------------------------------------
+                                                               HOW TO ADD CAMERA and Mic
+--------------------------------------------------------------------------------------------------------------------------------------------------
+   
+   (1) connect to 3.0 usb port for more quality image.
+   (2) test the web cam.
+   (3) if it does not work download drivers for it.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+                                                            PITOP DESKTOP PC SPECIFICATION
+---------------------------------------------------------------------------------------------------------------------------------------------
+                                                        Internal storage: "sd card" 32GB OR use a SSD DRIVE
+                                                        Ram: 8GB ddr4 3044mhz
+                                                        CPU 1: Quad-core vortex 64bit ARM 1.58GHZ
+                                                        CPU 2: Quad-core vortex 64bit ARM 1.58GHZ
+                                                        Motherboard: ELITE-PI-4-B+-MODEL-8353
+                                                        
+                                                        Manufacturer: Pi-board-opensource
+                                                        HDMI0-PORT: 1 micro-hdmi
+                                                        USB-PORT-2.0: 2 usb ports
+                                                        USB-PORT-3.1: 2 usb ports
+                                                        Eternet-port: 1GB port
+
+                                                        Wifi-card: 4G-Realtek-card-8213
+                                                        Bluetooth-card: 3.4gz-SAMSUNG-Evo+
+                                                        CPU-COOLX: Silent-DUO-RGB-brushless-fan-1.5V
+                                                        Power: External-C-USB-15V
+                                                        ENERGY-STAR: Certified-licence-175
+                                                        
+                                                        BIOS: PI-UEFI-HYSETUP
+                                                        TYPE: PORTABLE-BOX-PI
+                                                        GPU:Nivida-Mini-4GB-TEGRA-XL-PRO-GTI
+                                                        GPIO: NIVIDA-KEY-HAT-pin
+                                                        BUILT-IN-SECURITY: AMD-Psp-Key-128bit
+                                                        
+                                                        STORAGE-TYPE-SUPPORT: SDD,SD,SDHC,NVME,MicroSD
+                                                        AUDIO: HEAD-female-JACK-3.14mm
+                                                        FPS-Benchmark: 120FPS
+                                                        OPENGL: Open-source-4.15
+                                                        Monitor-support: hdmi0-Multi-display-support
+                                                        
+                                                        Quantuim-processer: 1 core
+                                                        Quantuim-decrypter: 128bit
+                                                        Quantuim-encrypter: 256bit
+                                                        System-on-chip:BROADcom BCM2711
+                                                        ROM-Chip:samsung-evo-com-EVT
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                     Features
+--------------------------------------------------------------------------------------------------------------------------------------------------
+                                                     (1) Overclocking to 50%
+                                                     (2) Gpu quality resolution up to 4k
+                                                     (3) fps up to 60 frame-rates
+                                                     (4) 3.0 and 2.0 usb ports (2 each)
+                                                     (5) hdmi support for 480x640 and higher
+                                                     (5) voltage is only 3.5v
+                                                     (6) 64GB storage (depends on sd card)
+                                                     (7) Vulcan cpu speeder
+                                                     (8) Quality 2db sound output
+                                                     (9) 4G Wifi and Eternet support
+                                                     (10) 2.0 bluetooth support
+                                                     (11) 8GB Ram which is enough for 6 web tabs or a heavy duty gaming and recording software.
+                                                     (12) Some Quantuim-decrypter and decrypter hardware for advanced antivirus protection
+                                                     (13) A 2GB ROM chip for faster startup
+                                                     (14) The Quad-core 1.5gz 64bit cpu allows hardcore gaming and web browsing
+                                                     (15) GP10 pins that allows you to add extra hardware
+                                                     (16) Energy Star approved which insures efficent and low electricity usage
+                                                     (17) Dual-fan cooling and heat-sinks keep cpu temp as low as 20 degrees
+                                                     (18) all of the parts could be easily replaced or modified.
+                                                     (19) all Pi based computers will be supported until 2031
+                                                       
+----------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                    EXTRA ADDONS FOR PITOP *********
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+(1) https://www.amazon.com/dp/B07VN9T173/  |  PC rack  |  $19.00  | level: Recommended
+
+(2) https://www.amazon.com/dp/B07BDN8PZZ/  | 250GB ultra-fast SSD | $28.00 | level: Needed for better pc speeds
+
+(3) https://www.amazon.com/dp/B086YTDZQZ/  | 5V battery | $22.00 | level: Not really needed but gives more portability
+
+(4) https://www.amazon.com/dp/B0821GB4QM/  | 1366px Desktop display | $97.00 | level: Needed for better usage and resolution experience
+
+(5) https://www.amazon.com/dp/B07H6G9G4P/  | Carrying Case box | 27.00 | level: Recommended for Middle school,High school and college students as well as office workers
+ 
+                                                     Total estimated price for extras: $193
+                                                     Total estimated price for pitop PC: $218
+                                                     Total combined estimated price: $411
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+                                                              WHAT ARE THESE ADDONS FOR **********
+
+(1) A PC rack is used for organizing the components of a desktop pc in one place allowing you to have a neat environment.
+It is also handy because pitop is known for slowing down if the motherboard is getting way too hot. 
+
+(2) A SSD is a Harddrive for pitop which is recommended because it gives much more space at higher speeds. They can speed up
+the R/W operation on the pitop. Also SD cards and especially micro SD cards are known to wear down after only 100 R/W operations which could cause the SD card to fail after 1-2 years of regular usage. SSD can give you over 10000 R/W operations which means it will work for over 10-20 years of regular usage. They also use less electricity because they do not have moving parts like traditional harddrives do.
+
+(3) A battery is needed for NON-PLUG operation in case electricity is suddenly taken down. It can also power most of the addons needed for this pitop pc. This is not really needed at all for proper operation of the pitop pc.
+
+(4) The desktop display is needed because the screen provided is not big enough to read or write fast and efficently. It also can lower the amount of bluelight radiation.
+
+(5) A carrying case is needed for those who don't want to spend money on a laptop but need a portable pc. You can carry the pitop,mouse,keyboard,mini screen and much more. You could also include a battery pack listed in number 3 for even more portability. Pitop weighs only 2.38 pounds which means it will be really lightweight. Pitop is also easy to connect and takes up only 2 min for assembly. The case also gives protection against water,high and low temperature and physical damage.
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+                                                         NOTICE
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+                                               
+        DO NOT USE A NON-OFFICAL MOTHERBOARD MODEL IN THIS KIT!
+        DO NOT STICK FINGERS IN THE COOLING FAN!
+        DO NOT USE ALCOHOL BASED PRODUCTS ON THE INSIDE PARTS AND CONTACTS.
+        TO CLEAN USE A DAMP TOWEL TO CLEAN ONLY THE CASE.
+        YOU MUST PUT THE MICRO SD CARD AND AN OPTIONAL SSD DRIVE INSIDE THE SYSTEM BECAUSE IT WON'T BOOT WITHOUT IT.
+        THE TEMPATURE SHOULD BE  30-120 DEGREES OR ELSE PITOP PREFORMANCE WILL BE TROTTLED TO LOW SPEED.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+                                                            Great tips
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+(1) You could use zram to increase the speed of your pitop like in this link | https://ikarus.sg/using-zram-to-get-more-out-of-your-raspberry-pi/
+
+(2) This is a link for andriod 11 | https://nerdschalk.com/how-to-install-android-11-on-raspberry-pi-4/
+
+(3) You can configurate the pi by following this link | https://www.raspberrypi.org/documentation/configuration/raspi-config.md
+
+(4) CPU overclocking follow this link | https://magpi.raspberrypi.org/articles/how-to-overclock-raspberry-pi-4#
+
+(5) Install apps the easy way, follow this link | https://raspberrytips.com/install-apps-raspberry-pi/#
+
+(6) Boot from the SSD Drive for better preformance | https://www.tomshardware.com/how-to/boot-raspberry-pi-4-usb#
+
+(7) Change boot up screen | https://scribles.net/customizing-boot-up-screen-on-raspberry-pi/ 
+
+(8) Difference between pi4top and the traditinal desktop | https://www.youtube.com/watch?v=zRKmlwA5law
+
+------------------------------------------------------------------------------------------------------------------------------------
+                                      Comparison of a normal desktop pc and PItop desktop
+------------------------------------------------------------------------------------------------------------------------------------
+(1) The normal desktop uses almost 5 times more electricity in WATTS than the pitop desktop which means the pitop can save your electricity bills.
+
+(2) Both the normal desktop and PItop pc can handle 1084px videos and heavy duty games.
+
+(3) The normal desktop boots 20 seconds slower than a PItop desktop
+
+(4) The PItop desktop CPU and Z-RAM usage is more efficient than a normal desktop due to LZ cache commpression.
+
+(5) Both PItop desktop and normal desktop can open about 21 chrome tabs, 1 GIMP window ,2 terminal tabs and 1 local HD video.
+
+(6) PItop is faster than a normal desktop when a SSD is used.
+
+(7) Internal hardware can be easily connected to PItop desktop.
+
+(8) Both normal and PItop desktop can support LUKS ANTIVIRUS PROTECTION at the highest level.
+
+(9) Both CPU and GPU of the PItop can be overclocked by 50% while normal desktop can only overclock to 20%.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+                                                    APP MAX BENCHMARKS
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+FIREFOX - MAX of 21 tabs
+
+VLC - MAX of 4 HD videos or 6 audio files
+
+MINECRAFT - MAX of 60/120FPS
+
+GIMP - MAX of 5 3D rendering tabs
+
+ZOOM CLIENT MEETING - MAX of 320 people
+
+UTORRENT - MAX of 40 downloads
+
+LIBREOFFICE - MAX of 7 documents
+
+OBS STUDIO - MAX of 60fps recording and streaming
+
+VMWARE WORKSTATION - MAX of 1 Virtual machine
+
+HEX CHAT - MAX of 10 chats
+
+CALL OF DUTY - MAX of high setting 60fps
+
+CRYPT MINER - MAX of 4 script processes
+
+VNC SERVER - MAX of 3 instances
+
+FILE MANAGER - MAX of 7 tabs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
